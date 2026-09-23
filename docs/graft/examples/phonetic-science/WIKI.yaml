@@ -1,0 +1,28 @@
+# graft-wiki instance manifest — validated against WIKI.schema.json
+# Run: python scripts/validate_manifest.py examples/phonetic-science/WIKI.yaml
+
+protocol:
+  name: graft-wiki
+  version: "0.1"
+
+instance:
+  name: phonetic-science-wiki
+  description: >-
+    Example graft-wiki instance covering phonetic science: articulatory
+    phonetics of consonants and vowels, and acoustic phonetics with
+    formants and spectrograms.
+  origin: SM260845/graft-wiki
+  topics:
+    - phonetics
+    - articulation
+    - acoustics
+    - ipa
+  maintainer: SM260845
+
+compiler:
+  model: local-llm
+  rules: AGENTS.md
+
+license:
+  code: MIT
+  content: CC-BY-4.0

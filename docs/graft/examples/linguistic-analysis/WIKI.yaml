@@ -1,0 +1,28 @@
+# graft-wiki instance manifest — validated against WIKI.schema.json
+# Run: python scripts/validate_manifest.py examples/linguistic-analysis/WIKI.yaml
+
+protocol:
+  name: graft-wiki
+  version: "0.1"
+
+instance:
+  name: linguistic-analysis-wiki
+  description: >-
+    Example graft-wiki instance covering linguistic analysis:
+    morphology, syntax with constituency, and semantics with
+    pragmatics.
+  origin: SM260845/graft-wiki
+  topics:
+    - linguistics
+    - morphology
+    - syntax
+    - semantics
+  maintainer: SM260845
+
+compiler:
+  model: local-llm
+  rules: AGENTS.md
+
+license:
+  code: MIT
+  content: CC-BY-4.0

@@ -1,0 +1,28 @@
+# graft-wiki instance manifest — validated against WIKI.schema.json
+# Run: python scripts/validate_manifest.py examples/finite-math/WIKI.yaml
+
+protocol:
+  name: graft-wiki
+  version: "0.1"
+
+instance:
+  name: finite-math-wiki
+  description: >-
+    Example graft-wiki instance covering finite mathematics: sets and
+    counting, probability on finite sample spaces, and matrices with
+    linear systems.
+  origin: SM260845/graft-wiki
+  topics:
+    - finite-math
+    - combinatorics
+    - probability
+    - matrices
+  maintainer: SM260845
+
+compiler:
+  model: local-llm
+  rules: AGENTS.md
+
+license:
+  code: MIT
+  content: CC-BY-4.0
