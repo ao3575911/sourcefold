@@ -1,0 +1,26 @@
+# graft-wiki instance manifest — validated against WIKI.schema.json
+# Run: python scripts/validate_manifest.py
+
+protocol:
+  name: graft-wiki
+  version: "0.1"
+
+instance:
+  name: graft-wiki-seed
+  description: >-
+    Seed instance of the graft-wiki protocol: a catalogue-not-merge,
+    LLM-compiled wiki. Fork this repository to graft a new instance.
+  origin: SM260845/graft-wiki
+  topics:
+    - graft-wiki
+    - protocol
+    - llm-wiki
+  maintainer: SM260845
+
+compiler:
+  model: local-llm
+  rules: AGENTS.md
+
+license:
+  code: MIT
+  content: CC-BY-4.0
