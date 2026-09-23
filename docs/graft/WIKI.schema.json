@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/SM260845/graft-wiki/main/WIKI.schema.json",
+  "title": "graft-wiki instance manifest",
+  "description": "Schema for WIKI.yaml, the manifest every graft-wiki instance must keep valid to be catalogued.",
+  "type": "object",
+  "required": ["protocol", "instance", "compiler", "license"],
+  "additionalProperties": false,
+  "properties": {
+    "protocol": {
+      "type": "object",
+      "required": ["name", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "const": "graft-wiki" },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+$",
+          "description": "Protocol version this instance follows, e.g. \"0.1\"."
+        }
+      }
+    },
+    "instance": {
+      "type": "object",
+      "required": ["name", "description", "origin", "topics"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$",
+          "description": "Unique instance name among catalogued forks."
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 280
+        },
+        "origin": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$",
+          "description": "owner/repo of the origin repository this instance was grafted from."
+        },
+        "topics": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "maintainer": {
+          "type": "string",
+          "description": "GitHub handle of the instance maintainer."
+        }
+      }
+    },
+    "compiler": {
+      "type": "object",
+      "required": ["model", "rules"],
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Local LLM used to compile wiki pages from raw/."
+        },
+        "rules": {
+          "const": "AGENTS.md",
+          "description": "Compiler rule file; always AGENTS.md."
+        }
+      }
+    },
+    "license": {
+      "type": "object",
+      "required": ["code", "content"],
+      "additionalProperties": false,
+      "properties": {
+        "code": { "const": "MIT" },
+        "content": { "const": "CC-BY-4.0" }
+      }
+    }
+  }
+}
