@@ -1,5 +1,6 @@
 # graft-wiki
-[gist link containing standalone graft-wiki constitution] Catalogue-not-merge LLM wiki protocol.
+https://gist.github.com/SM260845/38599c0509cce11e40af4b73d1553649
+Catalogue-not-merge LLM wiki protocol.
 
 ## Licence
 
