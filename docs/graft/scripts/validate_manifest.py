@@ -38,7 +38,10 @@ def validate_with_jsonschema(schema: dict, manifest: dict) -> list[str]:
     validator = jsonschema.Draft202012Validator(schema)
     return [
         f"{'/'.join(str(p) for p in e.absolute_path) or '<root>'}: {e.message}"
-        for e in validator.iter_errors(manifest)
+        for e in sorted(
+            validator.iter_errors(manifest),
+            key=lambda e: ([str(p) for p in e.absolute_path], e.message),
+        )
     ]
 
 
@@ -96,12 +99,17 @@ def validate_fallback(manifest: dict) -> list[str]:
     return errors
 
 
-def validate(manifest_path: Path) -> list[str]:
-    schema, manifest = load(manifest_path)
+def validate_data(schema: dict, manifest: dict) -> list[str]:
+    """Validate a manifest mapping, preferring jsonschema when installed."""
     try:
         return validate_with_jsonschema(schema, manifest)
     except ImportError:
         return validate_fallback(manifest)
+
+
+def validate(manifest_path: Path) -> list[str]:
+    schema, manifest = load(manifest_path)
+    return validate_data(schema, manifest)
 
 
 def main() -> int:

@@ -9,9 +9,11 @@ Usage:
     python scripts/build_catalog.py [--repo owner/repo] [--out DIR]
 
 Environment:
-    GITHUB_TOKEN   optional; raises the API rate limit and allows
-                   private-fork listing where permitted. Unauthenticated
-                   listing works for public forks at 60 requests/hour.
+    GITHUB_TOKEN   optional; raises the API rate limit for fork listing.
+                   Manifests are fetched unauthenticated from
+                   raw.githubusercontent.com, so only public forks can be
+                   catalogued. Unauthenticated listing works for public
+                   forks at 60 requests/hour.
 """
 
 from __future__ import annotations
@@ -19,6 +21,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -29,15 +32,18 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from validate_manifest import validate_fallback  # noqa: E402
+from validate_manifest import validate_data  # noqa: E402
 
 API = "https://api.github.com"
 DEFAULT_REPO = "SM260845/graft-wiki"
+SCHEMA_PATH = ROOT / "WIKI.schema.json"
+USER_AGENT = "graft-wiki-catalog-builder"
 
 
 def gh_get(url: str) -> object:
     request = urllib.request.Request(url)
     request.add_header("Accept", "application/vnd.github+json")
+    request.add_header("User-Agent", USER_AGENT)
     token = os.environ.get("GITHUB_TOKEN")
     if token:
         request.add_header("Authorization", "Bearer " + token)
@@ -49,7 +55,20 @@ def list_forks(repo: str) -> list[dict]:
     forks: list[dict] = []
     page = 1
     while True:
-        batch = gh_get(f"{API}/repos/{repo}/forks?per_page=100&page={page}")
+        url = f"{API}/repos/{repo}/forks?per_page=100&page={page}"
+        batch = gh_get(url)
+        if not isinstance(batch, list):
+            detail = ""
+            if isinstance(batch, dict):
+                detail = "; ".join(
+                    f"{key}: {batch[key]}"
+                    for key in ("message", "documentation_url")
+                    if batch.get(key)
+                )
+            raise RuntimeError(
+                f"unexpected GitHub API response for {url}"
+                + (f" ({detail})" if detail else "")
+            )
         if not batch:
             break
         forks.extend(batch)
@@ -61,15 +80,17 @@ def fetch_manifest(fork: dict) -> dict | None:
     full_name = fork["full_name"]
     branch = fork.get("default_branch", "main")
     url = f"https://raw.githubusercontent.com/{full_name}/{branch}/WIKI.yaml"
+    request = urllib.request.Request(url)
+    request.add_header("User-Agent", USER_AGENT)
     try:
-        with urllib.request.urlopen(url, timeout=30) as response:
+        with urllib.request.urlopen(request, timeout=30) as response:
             manifest = yaml.safe_load(response.read())
     except (urllib.error.URLError, yaml.YAMLError):
         return None
     return manifest if isinstance(manifest, dict) else None
 
 
-def catalog_entry(fork: dict) -> dict:
+def catalog_entry(fork: dict, schema: dict) -> dict:
     entry = {
         "repo": fork["full_name"],
         "url": fork["html_url"],
@@ -83,13 +104,23 @@ def catalog_entry(fork: dict) -> dict:
     if manifest is None:
         entry["errors"] = ["WIKI.yaml missing or unreadable"]
         return entry
-    errors = validate_fallback(manifest)
+    errors = validate_data(schema, manifest)
     if errors:
         entry["errors"] = errors
         return entry
     entry["catalogued"] = True
     entry["manifest"] = manifest
     return entry
+
+
+def md_cell(value: object) -> str:
+    """Escape a fork-controlled value for use in a markdown table cell."""
+    text = str(value)
+    text = "".join(
+        ch for ch in text if ch in ("\n", "\t") or (ord(ch) >= 32 and ord(ch) != 127)
+    )
+    text = re.sub(r"\s+", " ", text).strip()
+    return text.replace("\\", "\\\\").replace("|", "\\|")
 
 
 def write_outputs(repo: str, entries: list[dict], out_dir: Path) -> None:
@@ -129,10 +160,11 @@ def write_outputs(repo: str, entries: list[dict], out_dir: Path) -> None:
         ]
         for e in catalogued:
             inst = e["manifest"]["instance"]
-            topics = ", ".join(inst.get("topics", []))
+            topics = md_cell(", ".join(str(t) for t in inst.get("topics", [])))
             lines.append(
-                f"| {inst['name']} | [{e['repo']}]({e['url']}) "
-                f"| {inst['description']} | {topics} |"
+                f"| {md_cell(inst['name'])} "
+                f"| [{md_cell(e['repo'])}]({e['url']}) "
+                f"| {md_cell(inst['description'])} | {topics} |"
             )
     else:
         lines.append("_No catalogued instances yet — fork the origin to graft one._")
@@ -151,12 +183,14 @@ def main() -> int:
 
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
+    with open(SCHEMA_PATH, encoding="utf-8") as f:
+        schema = json.load(f)
     try:
         forks = list_forks(args.repo)
-    except urllib.error.URLError as exc:
+    except (urllib.error.URLError, RuntimeError) as exc:
         print(f"ERROR: cannot list forks of {args.repo}: {exc}", file=sys.stderr)
         return 1
-    entries = [catalog_entry(fork) for fork in forks]
+    entries = [catalog_entry(fork, schema) for fork in forks]
     write_outputs(args.repo, entries, out_dir)
     print(
         f"Wrote CATALOG.md and CATALOG.json: {len(entries)} fork(s), "
