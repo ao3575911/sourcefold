@@ -5,8 +5,8 @@
 Build the CLI, then fold this repository with the compiled binary:
 
 ```bash
-git clone https://github.com/ao3575911/sourcefold-wiki.git
-cd sourcefold-wiki
+git clone https://github.com/ao3575911/sourcefold.git
+cd sourcefold/ts
 npm ci
 npm run build:cli
 node dist/cli/index.js --root . --output /tmp/sourcefold-wiki.md

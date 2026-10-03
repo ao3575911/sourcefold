@@ -103,7 +103,6 @@ describe('runCli', () => {
     expect(stdout.join('')).toContain('0.1.0');
   });
 
-
   it('rejects malformed numeric flags', async () => {
     const stdout: string[] = [];
     const stderr: string[] = [];

@@ -1,6 +1,6 @@
-# sourcefold-wiki
+# Sourcefold TypeScript reference CLI
 
-Sourcefold Wiki is a public static knowledge base for Sourcefold and a reference implementation of the `sourcefold` CLI. Use it to learn the folding format, understand ignore and security rules, and generate a single Markdown artifact from any local repository.
+This is the TypeScript reference implementation of the `sourcefold` fold CLI, formerly the `sourcefold-wiki` repo. The knowledge base it shipped with now lives in [`../docs/`](../docs/). Use it to learn the folding format, understand ignore and security rules, and generate a single Markdown artifact from any local repository.
 
 ## Requirements
 
@@ -12,8 +12,8 @@ Sourcefold Wiki is a public static knowledge base for Sourcefold and a reference
 Build the CLI, then fold a repository with the compiled binary:
 
 ```bash
-git clone https://github.com/ao3575911/sourcefold-wiki.git
-cd sourcefold-wiki
+git clone https://github.com/ao3575911/sourcefold.git
+cd sourcefold/ts
 npm ci
 npm run build:cli
 node dist/cli/index.js --root . --output /tmp/sourcefold-wiki.md
@@ -43,8 +43,8 @@ sourcefold --version
 Clone the repository and run the local toolchain:
 
 ```bash
-git clone https://github.com/ao3575911/sourcefold-wiki.git
-cd sourcefold-wiki
+git clone https://github.com/ao3575911/sourcefold.git
+cd sourcefold/ts
 npm ci
 npm run lint
 npm test

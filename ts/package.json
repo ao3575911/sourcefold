@@ -14,7 +14,6 @@
   "main": "./dist/lib/index.js",
   "files": [
     "dist",
-    "docs",
     "examples",
     "LICENSE",
     "README.md",
@@ -23,11 +22,11 @@
     "CODE_OF_CONDUCT.md"
   ],
   "scripts": {
-    "dev": "vitepress dev docs",
+    "dev": "vitepress dev",
     "build": "npm run build:cli && npm run build:docs",
     "build:cli": "tsc -p tsconfig.build.json",
-    "build:docs": "vitepress build docs",
-    "preview": "vitepress preview docs",
+    "build:docs": "vitepress build",
+    "preview": "vitepress preview",
     "fold": "node dist/cli/index.js",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -45,11 +44,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ao3575911/sourcefold-wiki.git"
+    "url": "https://github.com/ao3575911/sourcefold.git",
+    "directory": "ts"
   },
-  "homepage": "https://github.com/ao3575911/sourcefold-wiki",
+  "homepage": "https://github.com/ao3575911/sourcefold/tree/main/ts",
   "bugs": {
-    "url": "https://github.com/ao3575911/sourcefold-wiki/issues"
+    "url": "https://github.com/ao3575911/sourcefold/issues"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -59,6 +59,7 @@
     "prettier": "3.9.8",
     "typescript": "5.9.3",
     "typescript-eslint": "8.70.1",
+    "vite": "^7.3.6",
     "vitepress": "1.6.4",
     "vitest": "5.0.1"
   },

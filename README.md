@@ -15,6 +15,18 @@ Sourcefold folds heterogeneous sources onto one auditable sheet without destroyi
 
 No web UI. No cloud sync. Local-first CLI only.
 
+## Layout
+
+| Path | What it is |
+|------|------------|
+| `src/sourcefold/`, `tests/` | The Python CLI (`sourcefold fold / unfold / seam / pocket / sheet`) |
+| `docs/` | Knowledge base: format spec, ignore rules, threat model, CLI reference. Built with VitePress from `ts/` (`npm run build:docs`) |
+| `ts/` | TypeScript reference CLI that folds a local repository into one Markdown artifact. See [`ts/README.md`](ts/README.md) |
+| `docs/graft-protocol.md` | The graft protocol: catalogue-not-merge for LLM-compiled wikis |
+| `docs/graft/` | Graft manifest, schema, compiler rules, catalogue scripts and example wikis |
+
+`docs/` and `ts/` were the `sourcefold-wiki` repo, and `docs/graft-protocol.md` plus `docs/graft/` were the `graft-wiki` repo. Both were merged here with their history.
+
 ## Install
 
 ```bash

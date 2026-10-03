@@ -64,7 +64,9 @@ describe('foldPath', () => {
       tree: 'README.md',
     });
 
-    expect(markdown).toContain('````md\nBefore\n```md\ninside\n```\nAfter\n\n````');
+    expect(markdown).toContain(
+      '````md\nBefore\n```md\ninside\n```\nAfter\n\n````'
+    );
   });
 
   it('respects ignore files and sensitive path protection', async () => {

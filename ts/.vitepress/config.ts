@@ -1,10 +1,24 @@
+import { createRequire } from 'node:module';
+import path from 'node:path';
 import { defineConfig } from 'vitepress';
+
+// The pages live in ../docs, outside this package, so resolve Vue from here.
+const require = createRequire(import.meta.url);
+const vueDir = path.dirname(require.resolve('vue/package.json'));
 
 export default defineConfig({
   title: 'Sourcefold Wiki',
   description:
     'Public documentation and reference CLI for folding repositories into a single Markdown artifact.',
+  srcDir: '../docs',
+  // graft/README.md links to license files that are not pages.
+  ignoreDeadLinks: [/LICENSE/],
   cleanUrls: true,
+  vite: {
+    resolve: {
+      alias: [{ find: /^vue(\/.*)?$/, replacement: `${vueDir}$1` }],
+    },
+  },
   themeConfig: {
     nav: [
       { text: 'Quick start', link: '/quick-start' },
@@ -37,7 +51,7 @@ export default defineConfig({
       },
     ],
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/ao3575911/sourcefold-wiki' },
+      { icon: 'github', link: 'https://github.com/ao3575911/sourcefold' },
     ],
   },
 });

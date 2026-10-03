@@ -18,7 +18,7 @@ never merges content from forks — it only **catalogues** them.
    manifests in [`CATALOG.md`](CATALOG.md) / [`CATALOG.json`](CATALOG.json).
    Content pull requests from forks to origin are declined by design.
 
-The full rules are in [`PROTOCOL.md`](PROTOCOL.md).
+The full rules are in [`docs/graft-protocol.md`](../graft-protocol.md).
 
 ## Repository layout
 
