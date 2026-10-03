@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/SM260845/graft-wiki/main/WIKI.schema.json",
+  "$id": "https://raw.githubusercontent.com/ao3575911/graft-wiki/main/WIKI.schema.json",
   "title": "graft-wiki instance manifest",
   "description": "Schema for WIKI.yaml, the manifest every graft-wiki instance must keep valid to be catalogued.",
   "type": "object",

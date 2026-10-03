@@ -11,13 +11,13 @@ instance:
     Example graft-wiki instance covering phonetic science: articulatory
     phonetics of consonants and vowels, and acoustic phonetics with
     formants and spectrograms.
-  origin: SM260845/graft-wiki
+  origin: ao3575911/graft-wiki
   topics:
     - phonetics
     - articulation
     - acoustics
     - ipa
-  maintainer: SM260845
+  maintainer: ao3575911
 
 compiler:
   model: local-llm

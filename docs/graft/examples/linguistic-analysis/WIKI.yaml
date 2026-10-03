@@ -11,13 +11,13 @@ instance:
     Example graft-wiki instance covering linguistic analysis:
     morphology, syntax with constituency, and semantics with
     pragmatics.
-  origin: SM260845/graft-wiki
+  origin: ao3575911/graft-wiki
   topics:
     - linguistics
     - morphology
     - syntax
     - semantics
-  maintainer: SM260845
+  maintainer: ao3575911
 
 compiler:
   model: local-llm

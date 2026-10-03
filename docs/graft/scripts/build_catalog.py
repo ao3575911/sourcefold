@@ -35,7 +35,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from validate_manifest import validate_data  # noqa: E402
 
 API = "https://api.github.com"
-DEFAULT_REPO = "SM260845/graft-wiki"
+DEFAULT_REPO = "ao3575911/graft-wiki"
 SCHEMA_PATH = ROOT / "WIKI.schema.json"
 USER_AGENT = "graft-wiki-catalog-builder"
 

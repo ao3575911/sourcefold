@@ -11,13 +11,13 @@ instance:
     Example graft-wiki instance covering finite mathematics: sets and
     counting, probability on finite sample spaces, and matrices with
     linear systems.
-  origin: SM260845/graft-wiki
+  origin: ao3575911/graft-wiki
   topics:
     - finite-math
     - combinatorics
     - probability
     - matrices
-  maintainer: SM260845
+  maintainer: ao3575911
 
 compiler:
   model: local-llm

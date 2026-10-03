@@ -10,12 +10,12 @@ instance:
   description: >-
     Seed instance of the graft-wiki protocol: a catalogue-not-merge,
     LLM-compiled wiki. Fork this repository to graft a new instance.
-  origin: SM260845/graft-wiki
+  origin: ao3575911/graft-wiki
   topics:
     - graft-wiki
     - protocol
     - llm-wiki
-  maintainer: SM260845
+  maintainer: ao3575911
 
 compiler:
   model: local-llm
