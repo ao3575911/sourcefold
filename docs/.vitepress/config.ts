@@ -37,7 +37,7 @@ export default defineConfig({
       },
     ],
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/SM260845/sourcefold-wiki' },
+      { icon: 'github', link: 'https://github.com/ao3575911/sourcefold-wiki' },
     ],
   },
 });

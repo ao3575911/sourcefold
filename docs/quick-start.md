@@ -5,7 +5,7 @@
 Build the CLI, then fold this repository with the compiled binary:
 
 ```bash
-git clone https://github.com/SM260845/sourcefold-wiki.git
+git clone https://github.com/ao3575911/sourcefold-wiki.git
 cd sourcefold-wiki
 npm ci
 npm run build:cli

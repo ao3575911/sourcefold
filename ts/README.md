@@ -12,7 +12,7 @@ Sourcefold Wiki is a public static knowledge base for Sourcefold and a reference
 Build the CLI, then fold a repository with the compiled binary:
 
 ```bash
-git clone https://github.com/SM260845/sourcefold-wiki.git
+git clone https://github.com/ao3575911/sourcefold-wiki.git
 cd sourcefold-wiki
 npm ci
 npm run build:cli
@@ -43,7 +43,7 @@ sourcefold --version
 Clone the repository and run the local toolchain:
 
 ```bash
-git clone https://github.com/SM260845/sourcefold-wiki.git
+git clone https://github.com/ao3575911/sourcefold-wiki.git
 cd sourcefold-wiki
 npm ci
 npm run lint

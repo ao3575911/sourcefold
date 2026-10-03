@@ -1,6 +1,6 @@
 # Contributing
 
-Follow the repository-level [contribution guide](https://github.com/SM260845/sourcefold-wiki/blob/main/CONTRIBUTING.md) for the complete workflow.
+Follow the repository-level [contribution guide](https://github.com/ao3575911/sourcefold-wiki/blob/main/CONTRIBUTING.md) for the complete workflow.
 
 ## Local checklist
 

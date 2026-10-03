@@ -45,11 +45,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/SM260845/sourcefold-wiki.git"
+    "url": "https://github.com/ao3575911/sourcefold-wiki.git"
   },
-  "homepage": "https://github.com/SM260845/sourcefold-wiki",
+  "homepage": "https://github.com/ao3575911/sourcefold-wiki",
   "bugs": {
-    "url": "https://github.com/SM260845/sourcefold-wiki/issues"
+    "url": "https://github.com/ao3575911/sourcefold-wiki/issues"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
